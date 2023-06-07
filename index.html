@@ -1,0 +1,138 @@
+<!DOCTYPE htm
+<html lang="en">
+<head>
+<title>Test Self Healing</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+body{
+
+	text-align:center;
+}
+.form-container{
+	width:max-content;
+	text-align:center;
+	margin-left:auto;
+	margin-right:auto;
+	border: 2px solid #c2c2a3;
+	padding:10px;
+	margin-bottom:15px;
+}
+.content{
+	border: 1px solid black;
+	padding:15px;
+}
+.title, .website_title{
+	width:100%;
+	background: #c2c2a3;
+	color:  #992600;
+}
+.border{
+	border:1px solid #c2c2a3;
+	padding:10px;
+	width:max-content;
+	margin:auto;
+}
+
+iframe{
+	height:320px;
+	width:800px;
+	margin-bottom:15px;
+
+}
+
+</style>
+</head>
+<body>
+
+<h3 class="title" > Test selfhealing</h3>
+<p> class of this title changes from title to website_title on click </p>
+
+<div class="form-container">
+<h4>Test Form </h4>
+<form onclick="submitForm()">
+  <label for="fname">First name:</label><br>
+  <input type="text" id="fname" name="fname" value="John"><br>
+  <label for="lname">Last name:</label><br>
+  <input type="text" id="lname" name="lname" value="Doe"><br><br>
+  <input type="submit" value="Submit">
+  <p> ID's of Input fields change on submit of form and id of content div is removed </p>
+  <div id="change_tag" > this div changes to span on form submit </div>
+</form> 
+<br>
+<div id="content" class ="content"> Content you submit will be displayed here:</div>
+</div>
+
+
+<img src="image.jpg" alt="image" height="150px" width="150px" />
+<p>On clicking this image it will fall inside 2 divs</p>
+
+<textarea id="w3review" name="w3review" rows="4" cols="50">this is a textarea</textarea>
+
+<iframe src="dynamicform.html" title="Loading the saame page inside iframe"> </iframe>
+<script>
+
+var title = document.getElementsByClassName("title")[0];
+
+
+title.addEventListener("click",()=>{
+	title.className = "website_title";
+})
+
+
+
+var ids=["axhZES","mhJIf","CHesa","Odgah","Livse","iksII","Pajsd","Irfyij","Iyasd","Oewbdf"]
+var form = document.getElementsByTagName("form")[0];
+
+form.addEventListener("submit",(e)=>{
+	e.preventDefault();
+	var context =" ";
+	var div = document.getElementById("change_tag");
+	var span = document.createElement('span');
+        span.setAttribute('id',div.getAttribute('id'));
+        while(div.firstChild) {
+         span.appendChild(div.firstChild);
+	}
+    div.parentNode.replaceChild(span,div);
+	elements = document.getElementsByTagName("input");
+	let i=0;
+	let x = Math.floor(Math.random() * 10); 
+	elements[i].id=ids[x];
+	context += elements[i].value+" ";
+	document.getElementById("content").innerHTML += context;
+	document.getElementById("content").removeAttribute('id');
+
+	
+	let tempele = document.createElement('input');
+	tempele.setAttribute("id","w3review");
+	document.getElementById("w3review").replaceWith(tempele);
+	
+})
+    
+var image = document.getElementsByTagName("img")[0];
+
+image.addEventListener("click",()=>{
+		let div2 = document.createElement('div');
+		div2.setAttribute("class","border");
+		let div1 = document.createElement('div');
+		div1.setAttribute("class","border");
+		let newImage = document.createElement('img');
+		newImage.setAttribute("src",image.getAttribute("src"));
+		newImage.setAttribute("alt",image.getAttribute("alt"));
+		newImage.setAttribute("height",image.getAttribute("height"));
+		newImage.setAttribute("width",image.getAttribute("width"));
+
+		div1.appendChild(div2);
+		div2.appendChild(newImage)
+		image.parentNode.replaceChild(div1,image);
+})
+
+
+
+</script>
+
+
+</body>
+</html>
+
